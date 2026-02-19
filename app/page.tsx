@@ -1,0 +1,81 @@
+import { createClient } from "@/lib/supabase/server"
+import { Navbar } from "@/components/landing/navbar"
+import { Hero } from "@/components/landing/hero"
+import { ValueProps } from "@/components/landing/value-props"
+import { TrendingTools } from "@/components/landing/trending-tools"
+import { VerifiedPreview } from "@/components/landing/verified-preview"
+import { RolePreview } from "@/components/landing/role-preview"
+import { CTASection } from "@/components/landing/cta-section"
+import { Footer } from "@/components/landing/footer"
+
+export default async function LandingPage() {
+  const supabase = await createClient()
+
+  // Fetch trending tools with category names
+  const { data: trendingTools } = await supabase
+    .from("tools")
+    .select("id, name, slug, tagline, description, website_url, pricing_model, is_verified, trending_reason, average_rating, review_count, categories(name)")
+    .eq("is_trending", true)
+    .order("featured_at", { ascending: false })
+    .limit(6)
+
+  // Fetch a verified tool for the preview section
+  const { data: verifiedTools } = await supabase
+    .from("tools")
+    .select("id, name, tagline, pricing_model, average_rating, review_count, why_professionals_use, categories(name)")
+    .eq("is_verified", true)
+    .order("average_rating", { ascending: false })
+    .limit(1)
+
+  // Fetch roles with tool counts
+  const { data: roles } = await supabase
+    .from("roles")
+    .select("id, name, slug, description, icon")
+    .order("display_order", { ascending: true })
+
+  // Get tool counts per role
+  const { data: toolRoleCounts } = await supabase
+    .from("tool_roles")
+    .select("role_id")
+
+  // Calculate counts
+  const roleCounts: Record<string, number> = {}
+  if (toolRoleCounts) {
+    for (const tr of toolRoleCounts) {
+      roleCounts[tr.role_id] = (roleCounts[tr.role_id] || 0) + 1
+    }
+  }
+
+  // Format data
+  const formattedTrending = (trendingTools || []).map((tool) => ({
+    ...tool,
+    category_name: (tool.categories as unknown as { name: string })?.name || "AI Tool",
+  }))
+
+  const formattedVerified = verifiedTools?.[0]
+    ? {
+        ...verifiedTools[0],
+        category_name:
+          (verifiedTools[0].categories as unknown as { name: string })?.name ||
+          "AI Tool",
+      }
+    : null
+
+  const formattedRoles = (roles || []).map((role) => ({
+    ...role,
+    tool_count: roleCounts[role.id] || 0,
+  }))
+
+  return (
+    <main className="min-h-screen">
+      <Navbar />
+      <Hero />
+      <ValueProps />
+      <TrendingTools tools={formattedTrending} />
+      <VerifiedPreview tool={formattedVerified} />
+      <RolePreview roles={formattedRoles} />
+      <CTASection />
+      <Footer />
+    </main>
+  )
+}
