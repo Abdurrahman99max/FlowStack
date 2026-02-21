@@ -39,11 +39,12 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
     <section className="relative px-6 pt-24 pb-20 md:pt-32 md:pb-28">
       <div className="mx-auto max-w-6xl">
         <div className="mx-auto max-w-2xl text-center">
-          <p
-            className="mb-5 text-[13px] font-medium tracking-wide text-muted-foreground uppercase animate-in fade-in slide-in-from-bottom-1 duration-500"
-          >
-            Signal over noise
-          </p>
+          <div className="mb-6 animate-in fade-in slide-in-from-bottom-1 duration-500">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-secondary px-3.5 py-1 text-[13px] font-medium tracking-wide text-muted-foreground">
+              <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+              Signal over noise
+            </span>
+          </div>
 
           <h1
             className="font-serif text-[40px] font-extrabold leading-[1.1] tracking-tight text-foreground text-balance md:text-[56px] animate-in fade-in slide-in-from-bottom-2 duration-500"
@@ -79,7 +80,7 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
                   }
                   className={`rounded-full px-4 py-1.5 text-[13px] font-medium transition-all duration-200 ${
                     selectedRole === role.slug
-                      ? "bg-foreground text-background shadow-sm"
+                      ? "bg-primary text-primary-foreground shadow-sm"
                       : "bg-secondary text-secondary-foreground hover:bg-secondary/80"
                   }`}
                 >
@@ -143,7 +144,7 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
                   <Lock className="h-3.5 w-3.5" />
                   Sign up to save your stack and see all {selectedStack?.tools.length} tools
                 </span>
-                <Button size="sm" className="h-8 gap-1.5 text-[13px]" asChild>
+                <Button size="sm" className="h-9 gap-2 rounded-full px-4 text-[13px]" asChild>
                   <Link href="/auth/sign-up">
                     Save My Stack
                     <ArrowRight className="h-3 w-3" />

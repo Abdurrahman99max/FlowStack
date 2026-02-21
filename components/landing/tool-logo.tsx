@@ -36,8 +36,8 @@ export function ToolLogo({ name, logoUrl, size = 40, className = "" }: ToolLogoP
         height={size * 0.6}
         className="object-contain"
         style={{ width: size * 0.6, height: size * 0.6 }}
+        loading="lazy"
         onError={() => setHasError(true)}
-        crossOrigin="anonymous"
       />
     </div>
   )
