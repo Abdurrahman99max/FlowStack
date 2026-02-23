@@ -85,7 +85,7 @@ export function OnboardingWizard({
         .from("profiles")
         .update({
           role_id: selectedRole,
-          onboarding_completed: true,
+          onboarding_complete: true,
           updated_at: new Date().toISOString(),
         })
         .eq("id", userId)
@@ -95,12 +95,12 @@ export function OnboardingWizard({
       // Insert selected tasks
       if (selectedTasks.length > 0) {
         const taskRows = selectedTasks.map((taskId) => ({
-          profile_id: userId,
+          user_id: userId,
           task_id: taskId,
         }))
 
         const { error: tasksError } = await supabase
-          .from("profile_tasks")
+          .from("user_tasks")
           .insert(taskRows)
 
         if (tasksError) throw tasksError

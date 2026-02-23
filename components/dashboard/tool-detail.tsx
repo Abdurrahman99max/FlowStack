@@ -53,7 +53,7 @@ export function ToolDetail({ tool, reviews: initialReviews, relatedTools }: Tool
     }
   }
 
-  const handleReviewSubmit = async (review: { rating: number; title: string; body: string }) => {
+  const handleReviewSubmit = async (review: { rating: number; title: string; content: string }) => {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
 
@@ -271,7 +271,7 @@ export function ToolDetail({ tool, reviews: initialReviews, relatedTools }: Tool
                         </div>
                       </div>
                       {review.title && <p className="text-sm font-medium mb-1">{review.title}</p>}
-                      <p className="text-sm text-muted-foreground">{review.body}</p>
+                      <p className="text-sm text-muted-foreground">{review.content}</p>
                       <p className="text-xs text-muted-foreground mt-2">
                         {new Date(review.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </p>

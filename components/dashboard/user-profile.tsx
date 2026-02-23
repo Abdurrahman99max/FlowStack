@@ -168,7 +168,7 @@ export function UserProfile({ user, reviews, bookmarkCount }: UserProfileProps) 
                         </div>
                       </div>
                       {review.title && <p className="text-sm font-medium mb-1">{review.title}</p>}
-                      <p className="text-sm text-muted-foreground">{review.body}</p>
+                      <p className="text-sm text-muted-foreground">{review.content}</p>
                       <p className="text-xs text-muted-foreground mt-2">
                         {new Date(review.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
                       </p>
