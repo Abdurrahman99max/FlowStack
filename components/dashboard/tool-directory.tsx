@@ -324,7 +324,7 @@ export function ToolDirectory({
   return (
     <div className="flex h-full">
       {/* Desktop sidebar filters */}
-      <aside className="hidden w-60 shrink-0 border-r border-border bg-card p-5 xl:block">
+      <aside className="hidden w-60 shrink-0 border-r border-border bg-card p-5 lg:block">
         <SidebarContent />
       </aside>
 
@@ -336,7 +336,7 @@ export function ToolDirectory({
             Explore AI Tools
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Discover and compare the best AI tools for your workflow.
+            Browse, compare, and save the best AI tools for your workflow.
           </p>
         </div>
 
@@ -363,7 +363,7 @@ export function ToolDirectory({
           <Button
             variant="outline"
             onClick={() => setMobileSidebar(!mobileSidebar)}
-            className="h-11 gap-2 xl:hidden"
+            className="h-11 gap-2 lg:hidden"
           >
             <SlidersHorizontal className="h-4 w-4" />
             <span className="hidden sm:inline">Filters</span>
@@ -377,7 +377,7 @@ export function ToolDirectory({
 
         {/* Mobile filter panel */}
         {mobileSidebar && (
-          <div className="mb-6 rounded-xl border border-border bg-card p-5 xl:hidden">
+          <div className="mb-6 rounded-xl border border-border bg-card p-5 lg:hidden">
             <SidebarContent />
           </div>
         )}
@@ -416,17 +416,17 @@ export function ToolDirectory({
         {filteredTools.length === 0 ? (
           <div className="py-16 text-center">
             <p className="mb-2 text-lg font-medium text-foreground">
-              No tools match your filters
+              No tools match your criteria
             </p>
             <p className="mb-4 text-sm text-muted-foreground">
-              Try broadening your search or adjusting the filters.
+              Try removing a filter or broadening your search terms.
             </p>
             <Button variant="outline" size="sm" onClick={clearFilters}>
               Clear all filters
             </Button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-2 2xl:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 2xl:grid-cols-3">
             {filteredTools.map((tool) => (
               <Card
                 key={tool.id}

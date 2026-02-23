@@ -147,9 +147,8 @@ export function OnboardingWizard({
         <Image
           src="/images/logo.png"
           alt="FlowStack"
-          width={48}
-          height={48}
-          className="rounded-xl"
+          width={56}
+          height={56}
         />
         <div className="flex items-center gap-2">
           {[1, 2].map((s) => (
@@ -291,7 +290,7 @@ export function OnboardingWizard({
               </div>
             )}
 
-            <div className="mt-10 flex items-center justify-between">
+            <div className="mt-10 flex flex-col-reverse items-stretch gap-3 sm:flex-row sm:items-center sm:justify-between">
               <Button
                 variant="ghost"
                 size="lg"
@@ -301,7 +300,7 @@ export function OnboardingWizard({
                 <ArrowLeft className="h-4 w-4" />
                 Back
               </Button>
-              <div className="flex items-center gap-3">
+              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
                 <Button
                   variant="outline"
                   size="lg"

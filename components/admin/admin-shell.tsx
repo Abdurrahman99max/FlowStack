@@ -49,14 +49,13 @@ export function AdminShell({ user, children }: AdminShellProps) {
     <div className="flex min-h-screen bg-background">
       {/* Desktop sidebar */}
       <aside className="hidden w-64 shrink-0 border-r border-border bg-card lg:flex lg:flex-col">
-        <div className="flex h-16 items-center gap-2 border-b border-border px-6">
-          <Link href="/admin" className="flex items-center gap-2">
+        <div className="flex h-16 items-center gap-2.5 border-b border-border px-6">
+          <Link href="/admin" className="flex items-center gap-2.5">
             <Image
               src="/images/logo.png"
               alt="FlowStack"
-              width={32}
-              height={32}
-              className="rounded-lg"
+              width={36}
+              height={36}
             />
             <span className="font-serif text-lg font-bold text-foreground">
               Admin
@@ -127,13 +126,12 @@ export function AdminShell({ user, children }: AdminShellProps) {
       <div className="flex flex-1 flex-col">
         {/* Mobile header */}
         <header className="flex h-16 items-center justify-between border-b border-border bg-card px-4 lg:hidden">
-          <Link href="/admin" className="flex items-center gap-2">
+          <Link href="/admin" className="flex items-center gap-2.5">
             <Image
               src="/images/logo.png"
               alt="FlowStack"
-              width={32}
-              height={32}
-              className="rounded-lg"
+              width={36}
+              height={36}
             />
             <span className="font-serif text-lg font-bold text-foreground">
               Admin

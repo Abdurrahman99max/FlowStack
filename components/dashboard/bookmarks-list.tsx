@@ -144,11 +144,11 @@ export function BookmarksList({
             <Bookmark className="h-7 w-7 text-muted-foreground" />
           </div>
           <p className="mb-2 text-lg font-medium text-foreground">
-            No saved tools yet
+            Your stack starts here
           </p>
           <p className="mx-auto mb-6 max-w-sm text-sm text-muted-foreground">
-            Browse the directory and bookmark tools to build your personalized AI
-            stack.
+            Save tools from the directory to build your personalized AI toolkit.
+            We{"'"}ll keep track of everything in one place.
           </p>
           <Button asChild>
             <Link href="/dashboard">Explore Tools</Link>
