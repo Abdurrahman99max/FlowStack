@@ -7,6 +7,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { GlowCard } from "@/components/ui/glow-card"
 
 /* Custom SVG icons — intentional, geometric, modern */
 
@@ -79,14 +80,14 @@ export function ValueProps() {
         </div>
 
         <TooltipProvider>
-          <div className="mx-auto grid max-w-4xl gap-px overflow-hidden rounded-2xl border border-border/60 bg-border/60 md:grid-cols-3">
+          <div className="mx-auto grid max-w-4xl gap-4 md:grid-cols-3">
             {props.map((prop, i) => (
-              <div
+              <GlowCard
                 key={prop.title}
-                className="group relative flex flex-col bg-card p-8 transition-colors hover:bg-secondary/30 animate-in fade-in slide-in-from-bottom-2 duration-500"
+                className="group relative flex flex-col p-8 hover:border-blue-500/30 animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm"
                 style={{ animationDelay: `${i * 100}ms`, animationFillMode: "both" }}
               >
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground">
+                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white shadow-sm">
                   <prop.icon />
                 </div>
                 <h3 className="mb-2 text-base font-semibold text-foreground">{prop.title}</h3>
@@ -105,7 +106,7 @@ export function ValueProps() {
                     {prop.help}
                   </TooltipContent>
                 </Tooltip>
-              </div>
+              </GlowCard>
             ))}
           </div>
         </TooltipProvider>
