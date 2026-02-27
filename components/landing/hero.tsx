@@ -37,15 +37,13 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
 
   return (
     <section className="relative overflow-hidden px-6 pt-24 pb-20 md:pt-32 md:pb-32">
-      {/* Ambient glowing background */}
       <div className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center overflow-hidden">
         <div className="absolute -top-[10%] left-[20%] h-125 w-125 rounded-full bg-primary/10 mix-blend-multiply blur-[120px] filter dark:bg-primary/20 dark:mix-blend-screen" />
-        <div className="absolute bottom-[10%] -right-[10%] h-150 w-150 rounded-full bg-blue-500/10 mix-blend-multiply blur-[120px] filter dark:bg-blue-500/20 dark:mix-blend-screen" />
+        <div className="absolute bottom-[10%] -right-[10%] h-150 w-150 rounded-full bg-primary/10 mix-blend-multiply blur-[120px] filter dark:bg-primary/20 dark:mix-blend-screen" />
       </div>
 
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-16 lg:grid-cols-2 lg:gap-8 lg:items-center">
-          {/* Left Column: Text & Interaction */}
           <div className="max-w-2xl">
             <div className="mb-6 animate-in fade-in slide-in-from-bottom-1 duration-500">
               <span className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/50 backdrop-blur-md px-3.5 py-1.5 text-[13px] font-medium tracking-wide text-foreground shadow-sm">
@@ -111,13 +109,11 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
             </div>
           </div>
 
-          {/* Right Column: Dynamic Visual / Glassmorphic Stack */}
           <div
             className="relative mx-auto w-full max-w-md lg:max-w-none animate-in fade-in slide-in-from-right-8 duration-700"
             style={{ animationDelay: "300ms", animationFillMode: "both" }}
           >
-            <div className="relative rounded-2xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl dark:border-white/5 dark:bg-black/20 p-6 md:p-8">
-              {/* Dynamic Content */}
+            <div className="relative rounded-xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur-xl dark:border-white/5 dark:bg-black/20 p-6 md:p-8">
               {selectedRole && previewTools.length > 0 ? (
                 <div className="animate-in fade-in zoom-in-95 duration-300">
                   <div className="mb-6 flex items-center justify-between border-b border-border/50 pb-4">
@@ -184,15 +180,13 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
                   </div>
                 </div>
               ) : (
-                /* Default Visual when no role is selected */
                 <div className="flex flex-col items-center justify-center py-12 text-center animate-in fade-in zoom-in-95 duration-300">
                   <div className="relative mb-8 h-40 w-full max-w-70">
-                    {/* Abstract overlapping glass cards */}
                     <div className="absolute left-4 top-0 h-24 w-48 rounded-xl border border-white/20 bg-linear-to-br from-white/40 to-white/5 backdrop-blur-md shadow-lg transform -rotate-6 transition-transform hover:rotate-0 dark:border-white/10 dark:from-white/10 dark:to-transparent" />
                     <div className="absolute right-4 top-6 h-24 w-48 rounded-xl border border-white/20 bg-linear-to-br from-primary/30 to-primary/5 backdrop-blur-md shadow-lg transform rotate-3 transition-transform hover:rotate-0 dark:border-primary/20 dark:from-primary/20" />
                     <div className="absolute left-1/2 top-12 h-28 w-56 -translate-x-1/2 rounded-xl border border-white/30 bg-background/80 backdrop-blur-xl shadow-xl flex items-center justify-center gap-3 p-4">
-                      <div className="h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center">
-                        <Layers className="h-5 w-5 text-blue-500" />
+                      <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center">
+                        <Layers className="h-5 w-5 text-primary" />
                       </div>
                       <div className="space-y-2 flex-1">
                         <div className="h-2.5 w-full rounded-full bg-muted-foreground/20" />
@@ -211,9 +205,8 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
               )}
             </div>
 
-            {/* Decorative elements behind the card */}
             <div className="absolute -bottom-6 -right-6 -z-10 h-24 w-24 rounded-full border border-primary/20 bg-primary/10 blur-xl" />
-            <div className="absolute -top-6 -left-6 -z-10 h-32 w-32 rounded-full border border-blue-500/20 bg-blue-500/10 blur-xl" />
+            <div className="absolute -top-6 -left-6 -z-10 h-32 w-32 rounded-full border border-primary/20 bg-primary/10 blur-xl" />
           </div>
         </div>
       </div>

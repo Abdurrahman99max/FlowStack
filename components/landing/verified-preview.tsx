@@ -50,7 +50,7 @@ export function VerifiedPreview({ tool }: { tool: VerifiedTool | null }) {
               </div>
             </div>
 
-            <GlowCard className="p-6 hover:border-blue-500/30 shadow-lg">
+            <GlowCard className="p-6 hover:border-primary/30 shadow-lg">
               <div className="mb-4 flex items-start gap-3">
                 <ToolLogo name={tool.name} logoUrl={tool.logo_url} size={44} />
                 <div className="min-w-0 flex-1">

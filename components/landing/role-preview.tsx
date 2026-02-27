@@ -59,10 +59,10 @@ export function RolePreview({ roles }: { roles: Role[] }) {
               return (
                 <GlowCard
                   key={role.id}
-                  className="group flex flex-col p-6 hover:border-blue-500/30 animate-in fade-in slide-in-from-bottom-4 duration-700"
+                  className="group flex flex-col p-6 hover:border-primary/30 animate-in fade-in slide-in-from-bottom-4 duration-700 shadow-sm"
                   style={{ animationDelay: `${i * 100}ms`, animationFillMode: "both" }}
                 >
-                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white shadow-sm">
+                  <div className="mb-4 flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground shadow-sm">
                     <Icon className="h-5 w-5" />
                   </div>
                   <h3 className="mb-2 text-lg font-semibold text-foreground">{role.name}</h3>
@@ -76,7 +76,7 @@ export function RolePreview({ roles }: { roles: Role[] }) {
                     ) : (
                       <span className="text-[13px] text-muted-foreground">New category</span>
                     )}
-                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-blue-500" />
+                    <ArrowRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-1 group-hover:text-primary" />
                   </div>
                 </GlowCard>
               )
@@ -88,7 +88,7 @@ export function RolePreview({ roles }: { roles: Role[] }) {
           .map((role) => (
             <div
               key={role.id}
-              className="mx-auto mt-6 max-w-5xl rounded-2xl border border-dashed border-border/60 bg-secondary/30 p-8 text-center transition-colors hover:bg-secondary/50 hover:border-border"
+              className="mx-auto mt-6 max-w-5xl rounded-xl border border-dashed border-border/60 bg-secondary/30 p-8 text-center transition-colors hover:bg-secondary/50 hover:border-border"
             >
               <p className="text-[14px] text-muted-foreground">
                 {"Don't see your role? "}

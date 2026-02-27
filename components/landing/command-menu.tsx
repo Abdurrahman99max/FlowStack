@@ -39,33 +39,33 @@ export function CommandMenu() {
     <>
       <Button
         variant="outline"
-        className="relative h-9 w-full justify-start rounded-full bg-secondary/50 border-border/50 text-sm font-normal text-muted-foreground shadow-none hover:bg-secondary/80 hover:text-foreground sm:pr-12 md:w-56 lg:w-64 transition-colors"
+        className="relative h-8 w-full justify-start rounded-full bg-secondary/50 border-border/50 text-xs font-normal text-muted-foreground shadow-none hover:bg-secondary/80 hover:text-foreground sm:pr-12 md:w-56 lg:w-64 transition-colors"
         onClick={() => setOpen(true)}
       >
-        <Search className="mr-2 h-4 w-4" />
+        <Search className="mr-2 h-3.5 w-3.5" />
         <span className="hidden lg:inline-flex">Search tools or roles...</span>
         <span className="inline-flex lg:hidden">Search...</span>
-        <kbd className="pointer-events-none absolute right-[0.3rem] top-[0.3rem] hidden h-7 select-none items-center gap-1 rounded-full border border-border bg-background px-2 font-mono text-[11px] font-medium opacity-100 sm:flex text-foreground">
-          <span className="text-xs">⌘</span>K
+        <kbd className="pointer-events-none absolute right-[0.2rem] top-[0.2rem] hidden h-6 select-none items-center gap-1 rounded-full border border-border bg-background px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex text-foreground">
+          <span className="text-[10px]">⌘</span>K
         </kbd>
       </Button>
 
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder="Type a tool name or role..." />
+        <CommandInput placeholder="Type a tool name or role..." className="my-4"/>
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           
           <CommandGroup heading="Roles">
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard?role=developer"))}>
-              <Code className="mr-2 h-4 w-4 text-blue-500" />
+              <Code className="mr-2 h-4 w-4 text-primary" />
               <span>Developer</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard?role=designer"))}>
-              <Palette className="mr-2 h-4 w-4 text-purple-500" />
+              <Palette className="mr-2 h-4 w-4 text-primary" />
               <span>Designer</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard?role=marketer"))}>
-              <Megaphone className="mr-2 h-4 w-4 text-orange-500" />
+              <Megaphone className="mr-2 h-4 w-4 text-primary" />
               <span>Marketer</span>
             </CommandItem>
           </CommandGroup>
@@ -78,11 +78,11 @@ export function CommandMenu() {
               <span>ChatGPT</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/tools/cursor"))}>
-              <Code className="mr-2 h-4 w-4 text-foreground" />
+              <Code className="mr-2 h-4 w-4 text-primary" />
               <span>Cursor</span>
             </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/tools/figma"))}>
-              <Palette className="mr-2 h-4 w-4 text-pink-500" />
+              <Palette className="mr-2 h-4 w-4 text-primary" />
               <span>Figma</span>
             </CommandItem>
           </CommandGroup>

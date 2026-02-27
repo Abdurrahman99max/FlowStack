@@ -9,8 +9,6 @@ import {
 } from "@/components/ui/tooltip"
 import { GlowCard } from "@/components/ui/glow-card"
 
-/* Custom SVG icons — intentional, geometric, modern */
-
 function WorkflowIcon() {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -84,10 +82,10 @@ export function ValueProps() {
             {props.map((prop, i) => (
               <GlowCard
                 key={prop.title}
-                className="group relative flex flex-col p-8 hover:border-blue-500/30 animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm"
+                className="group relative flex flex-col p-6 hover:border-primary/30 hover:shadow-md animate-in fade-in slide-in-from-bottom-2 duration-500 shadow-sm"
                 style={{ animationDelay: `${i * 100}ms`, animationFillMode: "both" }}
               >
-                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground transition-colors duration-300 group-hover:bg-blue-500 group-hover:text-white shadow-sm">
+                <div className="mb-5 flex h-10 w-10 items-center justify-center rounded-xl bg-secondary text-foreground transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground shadow-sm">
                   <prop.icon />
                 </div>
                 <h3 className="mb-2 text-base font-semibold text-foreground">{prop.title}</h3>

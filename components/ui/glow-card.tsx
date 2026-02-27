@@ -10,7 +10,7 @@ export function GlowCard({
   children,
   className = "",
   style,
-  glowColor = "rgba(59, 130, 246, 0.15)", // <-- CHANGE THIS TO THE COLOR FROM YOUR IMAGE!
+  glowColor = "rgba(245, 158, 11, 0.15)",
   ...props
 }: GlowCardProps) {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -32,7 +32,7 @@ export function GlowCard({
       onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative overflow-hidden rounded-2xl border border-border/50 bg-card transition-colors duration-300 ${className}`}
+      className={`relative overflow-hidden rounded-xl border bg-card transition-colors duration-300 ${className}`}
       style={style}
       {...props}
     >

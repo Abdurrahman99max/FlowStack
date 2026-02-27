@@ -40,7 +40,6 @@ function PricingBadge({ model }: { model: string }) {
 export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
   if (!tools || tools.length === 0) return null
 
-  // Duplicate the tools array to create a seamless infinite loop
   const marqueeTools = [...tools, ...tools, ...tools]
 
   return (
@@ -59,7 +58,6 @@ export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
       </div>
 
       <div className="relative flex w-full flex-col items-center justify-center overflow-hidden">
-        {/* Marquee Track */}
         <div className="flex w-max animate-marquee gap-4 px-4 py-4">
           {marqueeTools.map((tool, i) => (
             <Link
@@ -67,7 +65,7 @@ export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
               href={`/dashboard/tools/${tool.slug}`}
               className="group outline-none shrink-0 w-[320px] sm:w-[380px]"
             >
-              <GlowCard className="flex h-full flex-col p-6 hover:border-blue-500/30 hover:shadow-[0_4px_20px_rgba(0,0,0,0.05)] shadow-sm">
+              <GlowCard className="flex h-full flex-col p-6 hover:border-primary/30 hover:shadow-md shadow-sm">
                 <div className="mb-4 flex items-start gap-3">
                   <ToolLogo name={tool.name} logoUrl={tool.logo_url} size={44} />
                   <div className="min-w-0 flex-1">
@@ -97,7 +95,7 @@ export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
                   </p>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-border/50 pt-4">
+                <div className="flex items-center justify-between border-t border-border pt-4">
                   <div className="flex items-center gap-2">
                     <span className="flex items-center gap-0.5">
                       <Star className="h-3.5 w-3.5 fill-amber-400 text-amber-400" />
@@ -109,7 +107,7 @@ export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
                       {tool.review_count} reviews
                     </span>
                   </div>
-                  <span className="text-[13px] font-medium text-blue-500 opacity-0 transition-opacity group-hover:opacity-100">
+                  <span className="text-[13px] font-medium text-primary opacity-0 transition-opacity group-hover:opacity-100">
                     View <ArrowRight className="inline h-3.5 w-3.5" />
                   </span>
                 </div>
@@ -118,7 +116,6 @@ export function TrendingTools({ tools }: { tools: TrendingTool[] }) {
           ))}
         </div>
 
-        {/* Gradient overlays to fade the edges */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-[10%] bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-[10%] bg-gradient-to-l from-background to-transparent" />
       </div>
