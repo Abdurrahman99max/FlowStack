@@ -43,20 +43,27 @@ export default function SignUpPage() {
     }
 
     try {
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
           emailRedirectTo:
             process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL ||
-            `${window.location.origin}/dashboard`,
+            `${window.location.origin}/auth/callback`,
           data: {
             display_name: displayName || email.split("@")[0],
           },
         },
       })
       if (error) throw error
-      router.push("/auth/sign-up-success")
+
+      // If user is auto-confirmed (email confirmation disabled), redirect to onboarding
+      if (data.session) {
+        router.refresh()
+        router.push("/onboarding")
+      } else {
+        router.push("/auth/sign-up-success")
+      }
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : "An error occurred")
     } finally {
