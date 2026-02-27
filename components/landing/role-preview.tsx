@@ -72,7 +72,6 @@ export function RolePreview({ roles }: { roles: Role[] }) {
             })}
         </div>
 
-        {/* "Other" card */}
         {roles
           .filter((r) => r.slug === "other")
           .map((role) => (
@@ -90,13 +89,13 @@ export function RolePreview({ roles }: { roles: Role[] }) {
 
         <div className="mt-12 text-center">
           <Button className="h-9 gap-2 rounded-full text-[13px]" asChild>
-            <Link href="/auth/sign-up">
-              Find My AI Stack
+            <Link href="/dashboard">
+              Browse All Roles
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </Button>
           <p className="mt-3 text-[13px] text-muted-foreground">
-            Pick your role. See your tools. Takes under 2 minutes.
+            Instant access to the entire directory. No login required.
           </p>
         </div>
       </div>

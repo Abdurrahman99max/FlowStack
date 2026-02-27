@@ -2,15 +2,12 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname, useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
+import { usePathname } from "next/navigation"
 import {
   LayoutGrid,
   MessageSquare,
   Users,
   Shield,
-  LogOut,
   ArrowLeft,
   Menu,
   X,
@@ -19,11 +16,6 @@ import {
 import { useState } from "react"
 
 interface AdminShellProps {
-  user: {
-    id: string
-    email: string
-    displayName: string
-  }
   children: React.ReactNode
 }
 
@@ -34,16 +26,9 @@ const navItems = [
   { label: "Users", href: "/admin/users", icon: Users },
 ]
 
-export function AdminShell({ user, children }: AdminShellProps) {
+export function AdminShell({ children }: AdminShellProps) {
   const pathname = usePathname()
-  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleSignOut = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push("/")
-  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -96,31 +81,6 @@ export function AdminShell({ user, children }: AdminShellProps) {
             </Link>
           </div>
         </nav>
-
-        <div className="border-t border-border p-4">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
-              {user.displayName.charAt(0).toUpperCase()}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-foreground">
-                {user.displayName}
-              </p>
-              <p className="truncate text-xs text-muted-foreground">
-                Administrator
-              </p>
-            </div>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full justify-start gap-2 text-muted-foreground"
-            onClick={handleSignOut}
-          >
-            <LogOut className="h-4 w-4" />
-            Sign out
-          </Button>
-        </div>
       </aside>
 
       <div className="flex flex-1 flex-col">

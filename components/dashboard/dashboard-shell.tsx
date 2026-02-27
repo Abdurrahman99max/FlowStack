@@ -2,46 +2,27 @@
 
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname, useRouter } from "next/navigation"
-import { createClient } from "@/lib/supabase/client"
-import { Button } from "@/components/ui/button"
+import { usePathname } from "next/navigation"
 import {
   LayoutGrid,
   Bookmark,
-  User,
-  LogOut,
   Menu,
   X,
 } from "lucide-react"
 import { useState } from "react"
 
 interface DashboardShellProps {
-  user: {
-    id: string
-    email: string
-    displayName: string
-    roleName: string
-    roleSlug: string
-  }
   children: React.ReactNode
 }
 
 const navItems = [
   { label: "Explore Tools", href: "/dashboard", icon: LayoutGrid },
   { label: "My Stack", href: "/dashboard/bookmarks", icon: Bookmark },
-  { label: "Profile", href: "/dashboard/profile", icon: User },
 ]
 
-export function DashboardShell({ user, children }: DashboardShellProps) {
+export function DashboardShell({ children }: DashboardShellProps) {
   const pathname = usePathname()
-  const router = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
-
-  const handleSignOut = async () => {
-    const supabase = createClient()
-    await supabase.auth.signOut()
-    router.push("/")
-  }
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -80,32 +61,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
             )
           })}
         </nav>
-
-        {/* User section */}
-        <div className="border-t border-border p-4">
-          <div className="mb-3 flex items-center gap-3">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
-              {user.displayName.charAt(0).toUpperCase()}
-            </div>
-            <div className="min-w-0 flex-1">
-              <p className="truncate text-sm font-medium text-foreground">
-                {user.displayName}
-              </p>
-              <p className="truncate text-xs text-muted-foreground">
-                {user.roleName}
-              </p>
-            </div>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="w-full justify-start gap-2 text-muted-foreground"
-            onClick={handleSignOut}
-          >
-            <LogOut className="h-4 w-4" />
-            Sign out
-          </Button>
-        </div>
       </aside>
 
       {/* Main content area */}
@@ -156,24 +111,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
                 )
               })}
             </nav>
-            <div className="mt-3 flex items-center justify-between border-t border-border pt-3">
-              <div className="flex items-center gap-2">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
-                  {user.displayName.charAt(0).toUpperCase()}
-                </div>
-                <span className="text-sm font-medium text-foreground">
-                  {user.displayName}
-                </span>
-              </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="gap-2 text-muted-foreground"
-                onClick={handleSignOut}
-              >
-                <LogOut className="h-4 w-4" />
-              </Button>
-            </div>
           </div>
         )}
 

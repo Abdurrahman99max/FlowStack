@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
-import { ArrowRight, Star, Lock } from "lucide-react"
+import { ArrowRight, Star } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { ToolLogo } from "@/components/landing/tool-logo"
 
@@ -24,7 +24,7 @@ interface RoleStack {
 const roleChips = [
   { slug: "developer", label: "Developer" },
   { slug: "designer", label: "Designer" },
-  { slug: "product-manager", label: "PM" },
+  { slug: "product-manager", label: "Product Manager" },
   { slug: "marketer", label: "Marketer" },
   { slug: "writer", label: "Writer" },
   { slug: "data-analyst", label: "Analyst" },
@@ -61,7 +61,6 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
             around the tasks you do every day -- not marketing buzzwords.
           </p>
 
-          {/* Role selector */}
           <div
             className="mt-12 animate-in fade-in slide-in-from-bottom-2 duration-500"
             style={{ animationDelay: "240ms", animationFillMode: "both" }}
@@ -91,7 +90,6 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
           </div>
         </div>
 
-        {/* Stack preview */}
         {selectedRole && previewTools.length > 0 && (
           <div className="mx-auto mt-10 max-w-xl animate-in fade-in slide-in-from-bottom-3 duration-300">
             <div className="rounded-2xl border border-border/60 bg-card p-5">
@@ -141,12 +139,11 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
 
               <div className="mt-4 flex flex-col items-start gap-3 rounded-xl border border-dashed border-border bg-secondary/50 px-4 py-3 sm:flex-row sm:items-center sm:justify-between">
                 <span className="flex items-center gap-2 text-[13px] text-muted-foreground">
-                  <Lock className="h-3.5 w-3.5" />
-                  Sign up to save your stack and see all {selectedStack?.tools.length} tools
+                  Dive into the full list of {selectedStack?.tools.length} tools for {selectedStack?.role_name}s
                 </span>
                 <Button size="sm" className="h-9 w-full gap-2 rounded-full px-4 text-[13px] sm:w-auto" asChild>
-                  <Link href="/auth/sign-up">
-                    Save My Stack
+                  <Link href="/dashboard">
+                    Explore Directory
                     <ArrowRight className="h-3 w-3" />
                   </Link>
                 </Button>
@@ -155,7 +152,6 @@ export function Hero({ roleStacks }: { roleStacks: RoleStack[] }) {
           </div>
         )}
 
-        {/* Trust line */}
         {!selectedRole && (
           <div
             className="mt-16 flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[13px] text-muted-foreground animate-in fade-in duration-500"

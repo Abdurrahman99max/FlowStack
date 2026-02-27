@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { Menu, X } from "lucide-react"
+import { Menu, X, LayoutGrid } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import Image from "next/image"
 
@@ -32,11 +32,11 @@ export function Navbar() {
         </div>
 
         <div className="hidden items-center gap-2 md:flex">
-          <Button variant="ghost" size="sm" className="h-8 text-[13px]" asChild>
-            <Link href="/auth/login">Sign in</Link>
-          </Button>
-          <Button size="sm" className="h-8 text-[13px]" asChild>
-            <Link href="/auth/sign-up">Get Started</Link>
+          <Button size="sm" className="h-8 gap-2 rounded-full px-4 text-[13px]" asChild>
+            <Link href="/dashboard">
+              <LayoutGrid className="h-3.5 w-3.5" />
+              Explore Directory
+            </Link>
           </Button>
         </div>
 
@@ -65,12 +65,12 @@ export function Navbar() {
             <Link href="#roles" className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-secondary" onClick={() => setMobileOpen(false)}>
               By Role
             </Link>
-            <div className="mt-3 flex flex-col gap-2 border-t border-border/60 pt-3">
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/auth/login">Sign in</Link>
-              </Button>
-              <Button size="sm" asChild>
-                <Link href="/auth/sign-up">Get Started</Link>
+            <div className="mt-3 border-t border-border/60 pt-3">
+              <Button size="sm" className="w-full gap-2 rounded-full" asChild>
+                <Link href="/dashboard" onClick={() => setMobileOpen(false)}>
+                  <LayoutGrid className="h-3.5 w-3.5" />
+                  Explore Directory
+                </Link>
               </Button>
             </div>
           </div>
