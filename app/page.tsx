@@ -11,7 +11,6 @@ import { Footer } from "@/components/landing/footer"
 export default async function LandingPage() {
   const supabase = await createClient()
 
-  // Fetch trending tools with category names and logos
   const { data: trendingTools } = await supabase
     .from("tools")
     .select("id, name, slug, tagline, description, website_url, logo_url, pricing_model, is_verified, trending_reason, average_rating, review_count, categories(name)")
@@ -19,7 +18,6 @@ export default async function LandingPage() {
     .order("featured_at", { ascending: false })
     .limit(6)
 
-  // Fetch a verified tool for the preview section
   const { data: verifiedTools } = await supabase
     .from("tools")
     .select("id, name, tagline, logo_url, pricing_model, average_rating, review_count, why_professionals_use, categories(name)")
@@ -27,24 +25,20 @@ export default async function LandingPage() {
     .order("average_rating", { ascending: false })
     .limit(1)
 
-  // Fetch roles with tool counts
   const { data: roles } = await supabase
     .from("roles")
     .select("id, name, slug, description, icon")
     .order("display_order", { ascending: true })
 
-  // Get tool counts per role
   const { data: toolRoleCounts } = await supabase
     .from("tool_roles")
     .select("role_id")
 
-  // Fetch role stacks for the hero section preview (top 5 tools per role, sorted by rating)
   const mainRoleSlugs = ["developer", "designer", "product-manager", "marketer", "writer", "data-analyst"]
   const { data: roleStacksRaw } = await supabase
     .from("tool_roles")
     .select("roles(slug, name), tools(name, slug, tagline, logo_url, average_rating, pricing_model)")
 
-  // Build role stacks grouped by role
   type RoleStackMap = Record<string, {
     role_slug: string
     role_name: string
@@ -84,13 +78,11 @@ export default async function LandingPage() {
     }
   }
 
-  // Sort tools by rating descending within each role
   const roleStacks = Object.values(roleStackMap).map((rs) => ({
     ...rs,
     tools: rs.tools.sort((a, b) => Number(b.average_rating) - Number(a.average_rating)),
   }))
 
-  // Calculate counts
   const roleCounts: Record<string, number> = {}
   if (toolRoleCounts) {
     for (const tr of toolRoleCounts) {
@@ -98,7 +90,6 @@ export default async function LandingPage() {
     }
   }
 
-  // Format data
   const formattedTrending = (trendingTools || []).map((tool) => ({
     ...tool,
     category_name: (tool.categories as unknown as { name: string })?.name || "AI Tool",
@@ -122,10 +113,10 @@ export default async function LandingPage() {
     <main className="min-h-screen">
       <Navbar />
       <Hero roleStacks={roleStacks} />
-      <ValueProps />
-      <TrendingTools tools={formattedTrending} />
-      <VerifiedPreview tool={formattedVerified} />
       <RolePreview roles={formattedRoles} />
+      <TrendingTools tools={formattedTrending} />
+      <ValueProps />
+      <VerifiedPreview tool={formattedVerified} />
       <CTASection />
       <Footer />
     </main>

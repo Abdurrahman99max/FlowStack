@@ -75,7 +75,6 @@ export function OnboardingWizard({
 
   const totalSteps = 2
 
-  // Filter tasks dynamically based on selected role
   const filteredTasks = useMemo(() => {
     if (!selectedRole) return tasks
     const taskIdsForRole = roleTasks
@@ -95,7 +94,6 @@ export function OnboardingWizard({
 
   const handleRoleSelect = (roleId: string) => {
     setSelectedRole(roleId)
-    // Reset tasks when role changes
     setSelectedTasks([])
   }
 
@@ -142,7 +140,6 @@ export function OnboardingWizard({
 
   return (
     <div className="w-full max-w-2xl">
-      {/* Logo and progress */}
       <div className="mb-10 flex flex-col items-center gap-4">
         <Image
           src="/images/logo.png"
@@ -154,8 +151,8 @@ export function OnboardingWizard({
           {[1, 2].map((s) => (
             <div
               key={s}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                s <= step ? "w-14 bg-primary" : "w-8 bg-border"
+              className={`h-1.5 rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(245,158,11,0.5)] ${
+                s <= step ? "w-14 bg-primary" : "w-8 bg-white/10 shadow-none"
               }`}
             />
           ))}
@@ -164,10 +161,9 @@ export function OnboardingWizard({
 
       <div>
         {step === 1 && (
-          <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-            {/* Step 1: Role selection */}
+          <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <div className="text-center">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]">
                 Step 1 of {totalSteps}
               </p>
               <h1 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl text-balance">
@@ -178,7 +174,7 @@ export function OnboardingWizard({
               </p>
             </div>
 
-            <div className="mt-10 grid gap-3 sm:grid-cols-2">
+            <div className="mt-10 grid gap-4 sm:grid-cols-2">
               {roles.map((role) => {
                 const Icon = iconMap[role.icon] || Sparkles
                 const isSelected = selectedRole === role.id
@@ -186,17 +182,17 @@ export function OnboardingWizard({
                   <button
                     key={role.id}
                     onClick={() => handleRoleSelect(role.id)}
-                    className={`group relative flex items-start gap-3.5 rounded-xl border-2 p-4 text-left transition-all duration-200 ${
+                    className={`group relative flex items-start gap-3.5 rounded-xl border p-4 text-left transition-all duration-300 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] ${
                       isSelected
-                        ? "border-primary bg-primary/5 shadow-sm shadow-primary/10"
-                        : "border-border bg-card hover:border-primary/40 hover:bg-card/80"
+                        ? "border-primary/50 bg-primary/10 ring-1 ring-primary/50 shadow-[0_0_20px_rgba(245,158,11,0.15),inset_0_1px_0_rgba(255,255,255,0.1)]"
+                        : "border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 hover:shadow-[0_0_20px_rgba(255,255,255,0.05)]"
                     }`}
                   >
                     <div
-                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors ${
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ${
                         isSelected
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-muted text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary"
+                          ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(245,158,11,0.5)]"
+                          : "bg-white/5 text-muted-foreground group-hover:bg-white/10 group-hover:text-foreground"
                       }`}
                     >
                       <Icon className="h-5 w-5" />
@@ -210,10 +206,10 @@ export function OnboardingWizard({
                       </p>
                     </div>
                     <div
-                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-full border transition-all duration-300 ${
                         isSelected
-                          ? "border-primary bg-primary"
-                          : "border-border"
+                          ? "border-primary bg-primary shadow-[0_0_10px_rgba(245,158,11,0.5)]"
+                          : "border-white/20 bg-transparent"
                       }`}
                     >
                       {isSelected && (
@@ -228,7 +224,7 @@ export function OnboardingWizard({
             <div className="mt-10 flex justify-end">
               <Button
                 size="lg"
-                className="gap-2 rounded-xl px-8"
+                className="gap-2 rounded-xl px-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_30px_rgba(245,158,11,0.6)] transition-all"
                 disabled={!selectedRole}
                 onClick={() => setStep(2)}
               >
@@ -240,10 +236,9 @@ export function OnboardingWizard({
         )}
 
         {step === 2 && (
-          <div className="animate-in fade-in slide-in-from-right-4 duration-300">
-            {/* Step 2: Task selection */}
+          <div className="animate-in fade-in slide-in-from-right-4 duration-500">
             <div className="text-center">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary drop-shadow-[0_0_8px_rgba(245,158,11,0.8)]">
                 Step 2 of {totalSteps}
               </p>
               <h1 className="font-serif text-3xl font-bold tracking-tight text-foreground md:text-4xl text-balance">
@@ -256,17 +251,17 @@ export function OnboardingWizard({
               </p>
             </div>
 
-            <div className="mt-10 flex flex-wrap justify-center gap-2.5">
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
               {filteredTasks.map((task) => {
                 const isSelected = selectedTasks.includes(task.id)
                 return (
                   <button
                     key={task.id}
                     onClick={() => toggleTask(task.id)}
-                    className={`inline-flex items-center gap-1.5 rounded-full border-2 px-5 py-2.5 text-sm font-medium transition-all duration-200 ${
+                    className={`inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all duration-300 backdrop-blur-md shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] ${
                       isSelected
-                        ? "border-primary bg-primary/10 text-primary shadow-sm shadow-primary/10"
-                        : "border-border bg-card text-foreground hover:border-primary/40 hover:bg-primary/5"
+                        ? "border-primary/50 bg-primary/10 text-primary shadow-[0_0_15px_rgba(245,158,11,0.15)]"
+                        : "border-white/10 bg-white/5 text-foreground hover:border-white/20 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.05)]"
                     }`}
                   >
                     {isSelected && (
@@ -278,14 +273,14 @@ export function OnboardingWizard({
               })}
             </div>
 
-            <p className="mt-5 text-center text-sm text-muted-foreground">
+            <p className="mt-6 text-center text-sm text-muted-foreground">
               {selectedTasks.length === 0
                 ? "Select at least one task, or skip to see all tools"
                 : `${selectedTasks.length} task${selectedTasks.length !== 1 ? "s" : ""} selected`}
             </p>
 
             {error && (
-              <div className="mx-auto mt-4 max-w-sm rounded-lg border border-destructive/30 bg-destructive/5 px-4 py-3 text-center text-sm text-destructive">
+              <div className="mx-auto mt-4 max-w-sm rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3 text-center text-sm text-destructive backdrop-blur-md">
                 {error}
               </div>
             )}
@@ -294,7 +289,7 @@ export function OnboardingWizard({
               <Button
                 variant="ghost"
                 size="lg"
-                className="gap-2 rounded-xl"
+                className="gap-2 rounded-xl hover:bg-white/5"
                 onClick={() => setStep(1)}
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -304,7 +299,7 @@ export function OnboardingWizard({
                 <Button
                   variant="outline"
                   size="lg"
-                  className="rounded-xl"
+                  className="rounded-xl border-white/10 bg-white/5 backdrop-blur-md hover:bg-white/10 hover:border-white/20"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
                 >
@@ -312,7 +307,7 @@ export function OnboardingWizard({
                 </Button>
                 <Button
                   size="lg"
-                  className="gap-2 rounded-xl px-8"
+                  className="gap-2 rounded-xl px-8 shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_20px_rgba(245,158,11,0.4)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.2),0_0_30px_rgba(245,158,11,0.6)] transition-all"
                   onClick={handleSubmit}
                   disabled={isSubmitting}
                 >
