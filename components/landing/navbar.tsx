@@ -13,7 +13,9 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-background/80 backdrop-blur-xl">
       <nav className="mx-auto flex h-14 max-w-6xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image src="/images/logo.png" alt="FlowStack" width={36} height={36} />
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
+            <Image src="/images/logo.png" alt="FlowStack" width={28} height={28} />
+          </div>
           <span className="font-serif text-lg font-bold tracking-tight text-foreground">
             FlowStack
           </span>
