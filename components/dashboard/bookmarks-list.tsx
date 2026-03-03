@@ -145,7 +145,9 @@ export function BookmarksList({
             We{"'"}ll keep track of everything in one place.
           </p>
           <Button className="rounded-xl h-10 px-6" asChild>
-            <Link href="/dashboard">Explore Tools</Link>
+            <Link href="/dashboard" prefetch>
+              Explore Tools
+            </Link>
           </Button>
         </div>
       ) : (

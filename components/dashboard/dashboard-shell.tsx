@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { LayoutGrid, Bookmark, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface DashboardShellProps {
   children: React.ReactNode;
@@ -17,7 +17,13 @@ const navItems = [
 
 export function DashboardShell({ children }: DashboardShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    router.prefetch("/dashboard");
+    router.prefetch("/dashboard/bookmarks");
+  }, [router]);
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -49,6 +55,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
               <Link
                 key={item.href}
                 href={item.href}
+                prefetch
                 className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-primary/10 text-primary"
@@ -103,6 +110,7 @@ export function DashboardShell({ children }: DashboardShellProps) {
                   <Link
                     key={item.href}
                     href={item.href}
+                    prefetch
                     onClick={() => setMobileOpen(false)}
                     className={`flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors ${
                       isActive

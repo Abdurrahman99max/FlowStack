@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo } from "react"
+import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Input } from "@/components/ui/input"
 import { Badge } from "@/components/ui/badge"
@@ -120,6 +121,7 @@ export function ToolDirectory({
   bookmarkedToolIds,
 }: ToolDirectoryProps) {
   const supabase = createClient()
+  const router = useRouter()
   const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(
     new Set(bookmarkedToolIds),
   )
@@ -337,6 +339,24 @@ export function ToolDirectory({
     )
   }
 
+  const handleCardClick = (
+    event: React.MouseEvent<HTMLElement>,
+    slug: string,
+  ) => {
+    const target = event.target as HTMLElement
+    if (target.closest("a,button")) return
+    router.push(`/dashboard/tools/${slug}`)
+  }
+
+  const handleCardKeyDown = (
+    event: React.KeyboardEvent<HTMLElement>,
+    slug: string,
+  ) => {
+    if (event.key !== "Enter" && event.key !== " ") return
+    event.preventDefault()
+    router.push(`/dashboard/tools/${slug}`)
+  }
+
   return (
     <div className="flex h-full">
       <aside className="hidden w-60 shrink-0 border-r border-border bg-card p-5 lg:block overflow-y-auto">
@@ -432,7 +452,11 @@ export function ToolDirectory({
             {filteredTools.map((tool) => (
               <GlowCard
                 key={tool.id}
-                className="group flex flex-col p-6 hover:border-primary/30 hover:shadow-md shadow-sm"
+                className="group flex cursor-pointer flex-col p-6 shadow-sm hover:border-primary/30 hover:shadow-md"
+                role="link"
+                tabIndex={0}
+                onClick={(event) => handleCardClick(event, tool.slug)}
+                onKeyDown={(event) => handleCardKeyDown(event, tool.slug)}
               >
                 <div className="mb-4 flex items-start gap-3">
                   <ToolLogo name={tool.name} logoUrl={tool.logo_url || ""} size={44} />
