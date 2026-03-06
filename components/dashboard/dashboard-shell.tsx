@@ -3,19 +3,29 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { LayoutGrid, Bookmark, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client";
+import { Button } from "@/components/ui/button";
+import { LayoutGrid, Bookmark, Menu, X, User, LogOut } from "lucide-react";
 
 interface DashboardShellProps {
+  user: {
+    id: string;
+    email: string;
+    displayName: string;
+    roleName: string;
+    roleSlug: string;
+  };
   children: React.ReactNode;
 }
 
 const navItems = [
   { label: "Explore Tools", href: "/dashboard", icon: LayoutGrid },
   { label: "My Stack", href: "/dashboard/bookmarks", icon: Bookmark },
+  // { label: "Profile", href: "/dashboard/profile", icon: User },
 ];
 
-export function DashboardShell({ children }: DashboardShellProps) {
+export function DashboardShell({ user, children }: DashboardShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,7 +33,14 @@ export function DashboardShell({ children }: DashboardShellProps) {
   useEffect(() => {
     router.prefetch("/dashboard");
     router.prefetch("/dashboard/bookmarks");
+    router.prefetch("/dashboard/profile");
   }, [router]);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+  };
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
@@ -44,8 +61,25 @@ export function DashboardShell({ children }: DashboardShellProps) {
           </Link>
         </div>
 
+        {/* Desktop User Section */}
+        <Link href="/dashboard/profile" className="px-4 pt-6 pb-2 shrink-0">
+          <div className="flex items-center gap-3 rounded-xl p-3">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
+              {user.displayName.charAt(0).toUpperCase()}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-foreground">
+                {user.displayName}
+              </p>
+              <p className="truncate text-xs text-muted-foreground">
+                {user.roleName}
+              </p>
+            </div>
+          </div>
+        </Link>
+
         {/* Navigation */}
-        <nav className="flex flex-1 flex-col gap-1 px-3 py-4 overflow-y-auto">
+        <nav className="flex flex-1 flex-col gap-1 px-3 py-2 overflow-y-auto">
           {navItems.map((item) => {
             const isActive =
               item.href === "/dashboard"
@@ -68,6 +102,19 @@ export function DashboardShell({ children }: DashboardShellProps) {
             );
           })}
         </nav>
+
+        {/* Desktop Sign Out */}
+        <div className="mt-auto border-t border-border p-4 shrink-0">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start gap-2 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+            onClick={handleSignOut}
+          >
+            <LogOut className="h-4 w-4" />
+            Sign out
+          </Button>
+        </div>
       </aside>
 
       {/* Main content area */}
@@ -99,7 +146,22 @@ export function DashboardShell({ children }: DashboardShellProps) {
 
         {/* Mobile nav drawer */}
         {mobileOpen && (
-          <div className="border-b border-border bg-card p-4 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200 shrink-0">
+          <div className="border-b border-border bg-card p-4 lg:hidden animate-in fade-in slide-in-from-top-2 duration-200 shrink-0 shadow-md">
+            {/* Mobile User Section */}
+            <div className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-background p-3 shadow-sm">
+              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
+                {user.displayName.charAt(0).toUpperCase()}
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-sm font-medium text-foreground">
+                  {user.displayName}
+                </p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {user.roleName}
+                </p>
+              </div>
+            </div>
+
             <nav className="flex flex-col gap-1">
               {navItems.map((item) => {
                 const isActive =
@@ -124,6 +186,19 @@ export function DashboardShell({ children }: DashboardShellProps) {
                 );
               })}
             </nav>
+
+            {/* Mobile Sign Out */}
+            <div className="mt-4 border-t border-border pt-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="w-full justify-start gap-2 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                onClick={handleSignOut}
+              >
+                <LogOut className="h-4 w-4" />
+                Sign out
+              </Button>
+            </div>
           </div>
         )}
 
