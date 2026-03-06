@@ -224,6 +224,7 @@ export function ToolDirectory({
     if (!isMostlyVerticalWheel) return;
 
     event.preventDefault();
+    event.stopPropagation();
     container.scrollLeft += event.deltaY;
   };
 
@@ -277,8 +278,8 @@ export function ToolDirectory({
 
         <div className="flex items-center gap-3">
           <div
-            className="flex flex-1 items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
-            onWheel={handleHorizontalWheel}
+            className="flex flex-1 items-center gap-2 overflow-x-auto pb-1 overscroll-contain [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            onWheelCapture={handleHorizontalWheel}
           >
             <button
               onClick={() => setSelectedCategory("all")}
