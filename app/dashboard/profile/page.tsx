@@ -1,28 +1,30 @@
-import { createClient } from "@/lib/supabase/server"
-import { redirect } from "next/navigation"
-import { UserProfile } from "@/components/dashboard/user-profile"
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
+import { UserProfile } from "@/components/dashboard/user-profile";
 
 export default async function ProfilePage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) redirect("/auth/login")
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) redirect("/auth/login");
 
   const { data: profile } = await supabase
     .from("profiles")
     .select("*, roles(name, slug)")
     .eq("id", user.id)
-    .single()
+    .single();
 
   const { data: reviews } = await supabase
     .from("reviews")
     .select("*, tools:tool_id(name, slug, is_verified)")
     .eq("user_id", user.id)
-    .order("created_at", { ascending: false })
+    .order("created_at", { ascending: false });
 
   const { data: bookmarks } = await supabase
     .from("bookmarks")
     .select("id")
-    .eq("user_id", user.id)
+    .eq("user_id", user.id);
 
   return (
     <UserProfile
@@ -37,5 +39,5 @@ export default async function ProfilePage() {
       reviews={reviews || []}
       bookmarkCount={bookmarks?.length || 0}
     />
-  )
+  );
 }
