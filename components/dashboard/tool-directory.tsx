@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, type WheelEvent } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Input } from "@/components/ui/input"
@@ -212,6 +212,18 @@ export function ToolDirectory({
     return counts
   }, [tools])
 
+  const handleHorizontalWheel = (event: WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    const canScrollHorizontally = container.scrollWidth > container.clientWidth
+    if (!canScrollHorizontally) return
+
+    const isMostlyVerticalWheel = Math.abs(event.deltaY) > Math.abs(event.deltaX)
+    if (!isMostlyVerticalWheel) return
+
+    event.preventDefault()
+    container.scrollLeft += event.deltaY
+  }
+
   const SidebarContent = () => {
     return (
       <div className="flex flex-col gap-6">
@@ -219,7 +231,7 @@ export function ToolDirectory({
           <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
             Categories
           </h3>
-          <div className="flex flex-col gap-0.5">
+          <div className="flex flex-col gap-0.5" onWheel={handleHorizontalWheel}>
             <button
               onClick={() => setSelectedCategory("all")}
               className={`flex items-center justify-between rounded-lg px-3 py-2 text-sm transition-colors ${
