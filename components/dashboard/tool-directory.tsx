@@ -274,6 +274,7 @@ export function ToolDirectory({
             </button>
             {categories.map((cat) => {
               const Icon = categoryIconMap[cat.slug] || Sparkles
+              if (!categoryIconMap[cat.slug]) console.log("[v0] Missing icon for category slug:", cat.slug)
               return (
                 <button
                   key={cat.id}
