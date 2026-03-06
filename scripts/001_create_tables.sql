@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS public.tasks (
   created_at TIMESTAMPTZ DEFAULT now()
 );
 
-CREATE TABLE IF NOT EXISTS public.role_tasks (
+CREATE   TABLE IF NOT EXISTS public.role_tasks (
   role_id UUID NOT NULL REFERENCES public.roles(id) ON DELETE CASCADE,
   task_id UUID NOT NULL REFERENCES public.tasks(id) ON DELETE CASCADE,
   PRIMARY KEY (role_id, task_id)

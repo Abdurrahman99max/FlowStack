@@ -77,10 +77,6 @@ export function CommandMenu() {
               <Sparkles className="mr-2 h-4 w-4 text-primary" />
               <span>ChatGPT</span>
             </CommandItem>
-            <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/tools/cursor"))}>
-              <Code className="mr-2 h-4 w-4 text-primary" />
-              <span>Cursor</span>
-            </CommandItem>
             <CommandItem onSelect={() => runCommand(() => router.push("/dashboard/tools/figma"))}>
               <Palette className="mr-2 h-4 w-4 text-primary" />
               <span>Figma</span>
