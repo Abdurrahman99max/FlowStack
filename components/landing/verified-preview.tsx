@@ -1,8 +1,6 @@
 "use client";
 
-import Link from "next/link";
-import { BadgeCheck, Star, Quote, ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BadgeCheck, Star, Quote } from "lucide-react";
 import { ToolLogo } from "@/components/landing/tool-logo";
 import { GlowCard } from "@/components/ui/glow-card";
 
@@ -39,15 +37,6 @@ export function VerifiedPreview({ tool }: { tool: VerifiedTool | null }) {
                 professionals have used this tool, reviewed it, and consistently
                 rated it highly for their workflows.
               </p>
-
-              <div className="mt-8">
-                <Button className="h-9 gap-2 rounded-full text-[13px]" asChild>
-                  <Link href="/dashboard">
-                    Explore Verified Tools
-                    <ArrowRight className="h-3.5 w-3.5" />
-                  </Link>
-                </Button>
-              </div>
             </div>
 
             <GlowCard className="p-6 hover:border-primary/30 shadow-lg">

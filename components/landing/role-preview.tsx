@@ -91,9 +91,11 @@ export function RolePreview({ roles }: { roles: Role[] }) {
               className="mx-auto mt-6 max-w-5xl rounded-xl border border-dashed border-border/60 bg-secondary/30 p-8 text-center transition-colors hover:bg-secondary/50 hover:border-border"
             >
               <p className="text-[14px] text-muted-foreground">
-                {"Don't see your role? "}
-                <span className="text-foreground font-medium">Tell us what you do</span>
-                {" and pick your key tasks. We match you with the right tools based on how you actually work."}
+                <span className="text-foreground font-medium">Don't see your role?</span>
+                {" "}
+                <Link href="/dashboard" className="font-medium text-primary underline underline-offset-4 hover:text-primary/80">
+                  Maybe click to see more roles
+                </Link>
               </p>
             </div>
           ))}
@@ -105,9 +107,6 @@ export function RolePreview({ roles }: { roles: Role[] }) {
               <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
-          <p className="mt-4 text-[13px] text-muted-foreground">
-            Instant access to the entire directory. No login required.
-          </p>
         </div>
       </div>
     </section>
