@@ -1,13 +1,13 @@
-"use client";
+"use client"
 
-import { useState, useMemo } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { GlowCard } from "@/components/ui/glow-card";
-import { ToolLogo } from "@/components/landing/tool-logo";
+import { useState, useMemo, type WheelEvent } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
+import { Input } from "@/components/ui/input"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { GlowCard } from "@/components/ui/glow-card"
+import { ToolLogo } from "@/components/landing/tool-logo"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -212,61 +212,29 @@ export function ToolDirectory({
     for (const tool of tools) {
       counts[tool.category_slug] = (counts[tool.category_slug] || 0) + 1;
     }
-    return counts;
-  }, [tools]);
+    return counts
+  }, [tools])
 
-  const handleCardClick = (
-    event: React.MouseEvent<HTMLElement>,
-    slug: string,
-  ) => {
-    const target = event.target as HTMLElement;
-    if (target.closest("a,button")) return;
-    router.push(`/dashboard/tools/${slug}`);
-  };
+  const handleHorizontalWheel = (event: WheelEvent<HTMLDivElement>) => {
+    const container = event.currentTarget
+    const canScrollHorizontally = container.scrollWidth > container.clientWidth
+    if (!canScrollHorizontally) return
 
-  const handleCardKeyDown = (
-    event: React.KeyboardEvent<HTMLElement>,
-    slug: string,
-  ) => {
-    if (event.key !== "Enter" && event.key !== " ") return;
-    event.preventDefault();
-    router.push(`/dashboard/tools/${slug}`);
-  };
+    const isMostlyVerticalWheel = Math.abs(event.deltaY) > Math.abs(event.deltaX)
+    if (!isMostlyVerticalWheel) return
 
-  return (
-    <div className="p-6 lg:p-8">
-      <div className="mb-6">
-        <h1 className="font-serif text-2xl font-bold text-foreground">
-          Explore AI Tools
-        </h1>
-        <p className="mt-1 text-sm text-muted-foreground">
-          Browse, compare, and save the best AI tools for your workflow.
-        </p>
-      </div>
+    event.preventDefault()
+    container.scrollLeft += event.deltaY
+  }
 
-      <div className="mb-6 flex flex-col gap-4">
-        {/* Search Bar */}
-        <div className="relative w-full">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-          <Input
-            placeholder="Search tools by name, description, or use case..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="h-11 rounded-xl border-border bg-card pl-10"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2"
-            >
-              <X className="h-4 w-4 text-muted-foreground hover:text-foreground" />
-            </button>
-          )}
-        </div>
-
-        {/* Categories & Filter Toggle */}
-        <div className="flex items-center gap-3">
-          <div className="flex flex-1 items-center gap-2 overflow-x-auto pb-1 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+  const SidebarContent = () => {
+    return (
+      <div className="flex flex-col gap-6">
+        <div>
+          <h3 className="mb-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Categories
+          </h3>
+          <div className="flex flex-col gap-0.5" onWheel={handleHorizontalWheel}>
             <button
               onClick={() => setSelectedCategory("all")}
               className={`flex shrink-0 items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-colors ${
