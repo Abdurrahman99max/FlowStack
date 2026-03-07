@@ -49,13 +49,15 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         {/* Logo */}
         <div className="flex h-16 shrink-0 items-center gap-2.5 border-b border-border px-6">
           <Link href="/" className="flex items-center gap-2.5">
-            <Image
-              src="/images/logo.png"
-              alt="FlowStack"
-              width={36}
-              height={36}
-            />
-            <span className="font-serif text-lg font-bold text-foreground">
+            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
+              <Image
+                src="/images/logo.png"
+                alt="FlowStack"
+                width={28}
+                height={28}
+              />
+            </div>
+            <span className="font-serif text-lg font-bold tracking-tight text-foreground">
               FlowStack
             </span>
           </Link>
