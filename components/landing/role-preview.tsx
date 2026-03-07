@@ -100,25 +100,13 @@ export function RolePreview({ roles }: { roles: Role[] }) {
                 </span>{" "}
                 <Link
                   href="/dashboard"
-                  className="font-medium text-primary underline underline-offset-4 hover:text-primary/80"
+                  className="font-medium text-primary hover:text-primary/80"
                 >
-                  Maybe click to see more roles
+                  click to see more roles
                 </Link>
               </p>
             </div>
           ))}
-
-        <div className="mt-16 text-center">
-          <Button
-            className="h-11 gap-2 rounded-full px-8 text-[14px] shadow-lg transition-transform hover:scale-105"
-            asChild
-          >
-            <Link href="/dashboard">
-              Browse All Roles
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </Button>
-        </div>
       </div>
     </section>
   );
