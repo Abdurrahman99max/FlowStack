@@ -8,6 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
   Star,
   CheckCircle2,
   Bookmark,
@@ -26,31 +33,38 @@ interface UserProfileProps {
     id: string;
     email: string;
     displayName: string;
+    roleId: string;
     roleName: string;
     roleSlug: string;
     createdAt: string;
   };
   reviews: any[];
   bookmarkCount: number;
+  availableRoles: { id: string; name: string }[];
 }
 
 export function UserProfile({
   user,
   reviews,
   bookmarkCount,
+  availableRoles,
 }: UserProfileProps) {
   const supabase = createClient();
   const router = useRouter();
   const [editing, setEditing] = useState(false);
   const [displayName, setDisplayName] = useState(user.displayName);
+  const [roleId, setRoleId] = useState(user.roleId);
   const [saving, setSaving] = useState(false);
 
   const handleSave = async () => {
-    if (!displayName.trim()) return;
+    if (!displayName.trim() || !roleId) return;
     setSaving(true);
     await supabase
       .from("profiles")
-      .update({ display_name: displayName.trim() })
+      .update({
+        display_name: displayName.trim(),
+        role_id: roleId,
+      })
       .eq("id", user.id);
     setSaving(false);
     setEditing(false);
@@ -67,7 +81,6 @@ export function UserProfile({
 
   return (
     <div className="p-6 lg:p-8 max-w-4xl">
-      {/* Profile header */}
       <div className="mb-8">
         <h1 className="text-2xl font-serif font-bold text-foreground mb-1">
           Your Profile
@@ -78,7 +91,6 @@ export function UserProfile({
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Profile card */}
         <Card className="bg-card border-border">
           <CardContent className="p-6 flex flex-col items-center text-center">
             <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center text-3xl font-serif font-bold text-primary mb-4">
@@ -86,14 +98,27 @@ export function UserProfile({
             </div>
 
             {editing ? (
-              <div className="w-full flex flex-col gap-2 mb-3">
+              <div className="w-full flex flex-col gap-3 mb-4">
                 <Input
                   value={displayName}
                   onChange={(e) => setDisplayName(e.target.value)}
                   className="text-center"
+                  placeholder="Display Name"
                   autoFocus
                 />
-                <div className="flex items-center gap-2 justify-center">
+                <Select value={roleId} onValueChange={setRoleId}>
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select your role" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableRoles.map((role) => (
+                      <SelectItem key={role.id} value={role.id}>
+                        {role.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                <div className="flex items-center gap-2 justify-center mt-1">
                   <Button
                     size="sm"
                     onClick={handleSave}
@@ -108,29 +133,31 @@ export function UserProfile({
                     onClick={() => {
                       setEditing(false);
                       setDisplayName(user.displayName);
+                      setRoleId(user.roleId);
                     }}
                   >
-                    <X className="h-3 w-3" />
+                    <X className="h-3 w-3" /> Cancel
                   </Button>
                 </div>
               </div>
             ) : (
-              <div className="flex items-center gap-2 mb-1">
-                <h2 className="text-lg font-semibold text-foreground">
-                  {user.displayName}
-                </h2>
-                <button
-                  onClick={() => setEditing(true)}
-                  className="p-1 rounded hover:bg-secondary"
-                >
-                  <Pencil className="h-3 w-3 text-muted-foreground" />
-                </button>
-              </div>
+              <>
+                <div className="flex items-center gap-2 mb-1">
+                  <h2 className="text-lg font-semibold text-foreground">
+                    {user.displayName}
+                  </h2>
+                  <button
+                    onClick={() => setEditing(true)}
+                    className="p-1 rounded hover:bg-secondary"
+                  >
+                    <Pencil className="h-3 w-3 text-muted-foreground" />
+                  </button>
+                </div>
+                <Badge variant="secondary" className="mb-4">
+                  {user.roleName}
+                </Badge>
+              </>
             )}
-
-            <Badge variant="secondary" className="mb-3">
-              {user.roleName}
-            </Badge>
 
             <div className="flex flex-col gap-2 text-sm text-muted-foreground w-full">
               <div className="flex items-center gap-2">
@@ -151,9 +178,7 @@ export function UserProfile({
           </CardContent>
         </Card>
 
-        {/* Stats + Reviews */}
         <div className="lg:col-span-2 flex flex-col gap-6">
-          {/* Stats */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <Card className="bg-card border-border">
               <CardContent className="p-4 text-center">
@@ -190,7 +215,6 @@ export function UserProfile({
             </Card>
           </div>
 
-          {/* Reviews list */}
           <Card className="bg-card border-border">
             <CardHeader>
               <CardTitle className="text-lg font-serif">Your Reviews</CardTitle>

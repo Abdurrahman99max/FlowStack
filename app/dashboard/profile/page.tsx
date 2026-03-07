@@ -26,18 +26,25 @@ export default async function ProfilePage() {
     .select("id")
     .eq("user_id", user.id);
 
+  const { data: allRoles } = await supabase
+    .from("roles")
+    .select("id, name")
+    .order("name");
+
   return (
     <UserProfile
       user={{
         id: user.id,
         email: user.email || "",
         displayName: profile?.display_name || "",
+        roleId: profile?.role_id || "",
         roleName: (profile?.roles as any)?.name || "Explorer",
         roleSlug: (profile?.roles as any)?.slug || "",
         createdAt: user.created_at,
       }}
       reviews={reviews || []}
       bookmarkCount={bookmarks?.length || 0}
+      availableRoles={allRoles || []}
     />
   );
 }

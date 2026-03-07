@@ -49,7 +49,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  // Search state
   const [searchOpen, setSearchOpen] = useState(false);
   const [tools, setTools] = useState<
     { id: string; name: string; slug: string }[]
@@ -62,7 +61,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
     router.prefetch("/dashboard/profile");
   }, [router]);
 
-  // Keyboard shortcut for Cmd+K
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
@@ -75,7 +73,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
     return () => document.removeEventListener("keydown", down);
   }, []);
 
-  // Fetch tools when search is opened
   useEffect(() => {
     if (searchOpen && tools.length === 0 && !isSearchLoading) {
       const fetchTools = async () => {
@@ -107,13 +104,11 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
 
   return (
     <div className="flex h-screen overflow-hidden bg-background">
-      {/* Desktop sidebar */}
       <aside
         className={`relative hidden shrink-0 border-r border-border bg-card transition-all duration-300 ease-in-out lg:flex lg:flex-col h-full ${
           isCollapsed ? "w-20" : "w-64"
         }`}
       >
-        {/* Toggle Button */}
         <button
           onClick={() => setIsCollapsed(!isCollapsed)}
           className="absolute -right-3 top-6 z-20 flex h-6 w-6 items-center justify-center rounded-full border border-border bg-background text-muted-foreground shadow-sm transition-colors hover:bg-secondary hover:text-foreground"
@@ -126,7 +121,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           )}
         </button>
 
-        {/* Logo */}
         <div
           className={`flex h-16 shrink-0 items-center border-b border-border transition-all duration-300 ${
             isCollapsed ? "justify-center px-0" : "px-6"
@@ -141,13 +135,14 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
                 height={28}
               />
             </div>
-            <span className="font-serif text-lg font-bold tracking-tight text-foreground">
-              FlowStack
-            </span>
+            {!isCollapsed && (
+              <span className="font-serif text-lg font-bold tracking-tight text-foreground">
+                FlowStack
+              </span>
+            )}
           </Link>
         </div>
 
-        {/* Desktop User Section */}
         <Link
           href="/dashboard/profile"
           className={`shrink-0 pb-2 pt-6 transition-all duration-300 ${
@@ -175,7 +170,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           </div>
         </Link>
 
-        {/* Navigation */}
         <nav
           className={`flex flex-1 flex-col gap-1 overflow-y-auto py-2 transition-all duration-300 ${
             isCollapsed ? "px-2" : "px-3"
@@ -207,7 +201,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           })}
         </nav>
 
-        {/* Desktop Sign Out */}
         <div
           className={`mt-auto shrink-0 border-t border-border py-4 transition-all duration-300 ${
             isCollapsed ? "flex justify-center px-2" : "px-4"
@@ -230,9 +223,7 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
         </div>
       </aside>
 
-      {/* Main content area */}
       <div className="flex flex-1 flex-col overflow-hidden">
-        {/* Mobile header */}
         <header className="flex h-16 shrink-0 items-center justify-between border-b border-border bg-card px-4 lg:hidden">
           <Link href="/" className="flex items-center gap-2.5">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900">
@@ -269,10 +260,8 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           </div>
         </header>
 
-        {/* Mobile nav drawer */}
         {mobileOpen && (
           <div className="animate-in fade-in slide-in-from-top-2 shrink-0 border-b border-border bg-card p-4 shadow-md duration-200 lg:hidden">
-            {/* Mobile User Section */}
             <div className="mb-4 flex items-center gap-3 rounded-xl border border-border bg-background p-3 shadow-sm">
               <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-primary/10 font-serif text-sm font-bold text-primary">
                 {user.displayName.charAt(0).toUpperCase()}
@@ -312,7 +301,6 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
               })}
             </nav>
 
-            {/* Mobile Sign Out */}
             <div className="mt-4 border-t border-border pt-4">
               <Button
                 variant="ghost"
@@ -327,11 +315,9 @@ export function DashboardShell({ user, children }: DashboardShellProps) {
           </div>
         )}
 
-        {/* Page content */}
         <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
 
-      {/* Search Dialog (Global for Dashboard) */}
       <CommandDialog open={searchOpen} onOpenChange={setSearchOpen}>
         <CommandInput placeholder="Search tools by name..." className="my-4" />
         <CommandList className="pb-2">
